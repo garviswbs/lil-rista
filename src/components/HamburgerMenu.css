@@ -1,0 +1,162 @@
+.hamburger-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.hamburger-button:hover {
+  background: #555;
+}
+
+.hamburger-button span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-button.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-button.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-button.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.flyout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.flyout-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-width: 85vw;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.flyout-menu.open {
+  transform: translateX(0);
+}
+
+.menu-nav {
+  padding: 60px 0 20px 0;
+}
+
+.menu-section {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-section:last-child {
+  border-bottom: none;
+}
+
+.menu-parent {
+  padding: 15px 20px;
+  background: #f8f8f8;
+}
+
+.parent-link {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.parent-link:hover {
+  color: #007bff;
+}
+
+.menu-children {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-children li {
+  border-top: 1px solid #e0e0e0;
+}
+
+.menu-children li:first-child {
+  border-top: none;
+}
+
+.menu-children a {
+  display: block;
+  padding: 12px 20px 12px 40px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.menu-children a:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.menu-children a.active {
+  background: #e8f4f8;
+  color: #007bff;
+  border-left-color: #007bff;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .flyout-menu {
+    width: 280px;
+  }
+  
+  .hamburger-button {
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
