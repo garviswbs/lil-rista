@@ -22,13 +22,13 @@ const parentConfig = {
   barista: {
     name: 'Barista View',
     children: [
-      { name: 'Barista View 1', path: 'barista-view-1' },
-      { name: 'Barista View 2', path: 'barista-view-2' },
+      { name: 'Awaiting Beverage', path: 'awaiting-beverage' },
+      { name: 'Beverage Received', path: 'beverage-received' },
       { name: 'Barista View 3', path: 'barista-view-3' }
     ]
   },
-  d: {
-    name: 'Parent D',
+  dashboard: {
+    name: 'Dashboard',
     children: [
       { name: 'Child D1', path: 'child-d1' },
       { name: 'Child D2', path: 'child-d2' },
@@ -50,7 +50,7 @@ function ParentPageLayout({ parent }) {
   }
 
   const handleTabClick = (childPath) => {
-    const parentPath = parent === 'check-in' ? 'check-in-view' : parent === 'badge' ? 'badge-view' : parent === 'barista' ? 'barista-view' : `parent-${parent}`
+    const parentPath = parent === 'check-in' ? 'check-in-view' : parent === 'badge' ? 'badge-view' : parent === 'barista' ? 'barista-view' : parent === 'dashboard' ? 'dashboard' : `parent-${parent}`
     navigate(`/${parentPath}/${childPath}`)
   }
 

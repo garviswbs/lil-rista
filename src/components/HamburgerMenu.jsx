@@ -26,14 +26,14 @@ const menuStructure = [
     parent: 'Barista View',
     parentPath: 'barista-view',
     children: [
-      { name: 'Barista View 1', path: 'barista-view-1' },
-      { name: 'Barista View 2', path: 'barista-view-2' },
+      { name: 'Awaiting Beverage', path: 'awaiting-beverage' },
+      { name: 'Beverage Received', path: 'beverage-received' },
       { name: 'Barista View 3', path: 'barista-view-3' }
     ]
   },
   {
-    parent: 'Parent D',
-    parentPath: 'parent-d',
+    parent: 'Dashboard',
+    parentPath: 'dashboard',
     children: [
       { name: 'Child D1', path: 'child-d1' },
       { name: 'Child D2', path: 'child-d2' },

@@ -8,8 +8,8 @@ import WalkInReg from './pages/CheckInView/WalkInReg'
 import AwaitingBadge from './pages/BadgeView/AwaitingBadge'
 import BadgeReceived from './pages/BadgeView/BadgeReceived'
 import BadgeView3 from './pages/BadgeView/BadgeView3'
-import BaristaView1 from './pages/BaristaView/BaristaView1'
-import BaristaView2 from './pages/BaristaView/BaristaView2'
+import AwaitingBeverage from './pages/BaristaView/AwaitingBeverage'
+import BeverageReceived from './pages/BaristaView/BeverageReceived'
 import BaristaView3 from './pages/BaristaView/BaristaView3'
 import ChildD1 from './pages/ParentD/ChildD1'
 import ChildD2 from './pages/ParentD/ChildD2'
@@ -39,12 +39,12 @@ function App() {
             <Route path="badge-view-3" element={<BadgeView3 />} />
           </Route>
           <Route path="/barista-view" element={<ParentPageLayout parent="barista" />}>
-            <Route index element={<Navigate to="barista-view-1" replace />} />
-            <Route path="barista-view-1" element={<BaristaView1 />} />
-            <Route path="barista-view-2" element={<BaristaView2 />} />
+            <Route index element={<Navigate to="awaiting-beverage" replace />} />
+            <Route path="awaiting-beverage" element={<AwaitingBeverage />} />
+            <Route path="beverage-received" element={<BeverageReceived />} />
             <Route path="barista-view-3" element={<BaristaView3 />} />
           </Route>
-          <Route path="/parent-d" element={<ParentPageLayout parent="d" />}>
+          <Route path="/dashboard" element={<ParentPageLayout parent="dashboard" />}>
             <Route index element={<Navigate to="child-d1" replace />} />
             <Route path="child-d1" element={<ChildD1 />} />
             <Route path="child-d2" element={<ChildD2 />} />
