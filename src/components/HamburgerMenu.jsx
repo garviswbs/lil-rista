@@ -7,9 +7,10 @@ const menuStructure = [
     parent: 'Check-in View',
     parentPath: 'check-in-view',
     children: [
-      { name: 'Check-in View 1', path: 'check-in-view-1' },
-      { name: 'Check-in View 2', path: 'check-in-view-2' },
-      { name: 'Check-in View 3', path: 'check-in-view-3' }
+      { name: 'Not Checked-In', path: 'not-checked-in' },
+      { name: 'Checked-In', path: 'checked-in' },
+      { name: 'All attendees', path: 'all-attendees' },
+      { name: 'Walk-In Reg', path: 'walk-in-reg' }
     ]
   },
   {
@@ -74,7 +75,7 @@ function HamburgerMenu() {
 
   return (
     <>
-      <button 
+      <button
         className={`hamburger-button ${isOpen ? 'open' : ''}`}
         onClick={toggleMenu}
         aria-label="Toggle menu"
@@ -88,7 +89,7 @@ function HamburgerMenu() {
           {menuStructure.map((section) => (
             <div key={section.parentPath} className="menu-section">
               <div className="menu-parent">
-                <Link 
+                <Link
                   to={`/${section.parentPath}/${section.children[0].path}`}
                   className="parent-link"
                   onClick={() => setIsOpen(false)}

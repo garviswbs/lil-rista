@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import HamburgerMenu from './components/HamburgerMenu'
 import ParentPageLayout from './components/ParentPageLayout'
-import CheckInView1 from './pages/CheckInView/CheckInView1'
-import CheckInView2 from './pages/CheckInView/CheckInView2'
-import CheckInView3 from './pages/CheckInView/CheckInView3'
+import NotCheckedIn from './pages/CheckInView/NotCheckedIn'
+import CheckedIn from './pages/CheckInView/CheckedIn'
+import AllAttendees from './pages/CheckInView/AllAttendees'
+import WalkInReg from './pages/CheckInView/WalkInReg'
 import BadgeView1 from './pages/BadgeView/BadgeView1'
 import BadgeView2 from './pages/BadgeView/BadgeView2'
 import BadgeView3 from './pages/BadgeView/BadgeView3'
@@ -23,12 +24,13 @@ function App() {
       <div className="app">
         <HamburgerMenu />
         <Routes>
-          <Route path="/" element={<Navigate to="/check-in-view/check-in-view-1" replace />} />
+          <Route path="/" element={<Navigate to="/check-in-view/not-checked-in" replace />} />
           <Route path="/check-in-view" element={<ParentPageLayout parent="check-in" />}>
-            <Route index element={<Navigate to="check-in-view-1" replace />} />
-            <Route path="check-in-view-1" element={<CheckInView1 />} />
-            <Route path="check-in-view-2" element={<CheckInView2 />} />
-            <Route path="check-in-view-3" element={<CheckInView3 />} />
+            <Route index element={<Navigate to="not-checked-in" replace />} />
+            <Route path="not-checked-in" element={<NotCheckedIn />} />
+            <Route path="checked-in" element={<CheckedIn />} />
+            <Route path="all-attendees" element={<AllAttendees />} />
+            <Route path="walk-in-reg" element={<WalkInReg />} />
           </Route>
           <Route path="/badge-view" element={<ParentPageLayout parent="badge" />}>
             <Route index element={<Navigate to="badge-view-1" replace />} />
