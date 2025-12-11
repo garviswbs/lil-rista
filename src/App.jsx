@@ -11,7 +11,7 @@ import BadgeView3 from './pages/BadgeView/BadgeView3'
 import AwaitingBeverage from './pages/BaristaView/AwaitingBeverage'
 import BeverageReceived from './pages/BaristaView/BeverageReceived'
 import BaristaView3 from './pages/BaristaView/BaristaView3'
-import ChildD1 from './pages/ParentD/ChildD1'
+import Metrics from './pages/ParentD/Metrics'
 import ChildD2 from './pages/ParentD/ChildD2'
 import ChildD3 from './pages/ParentD/ChildD3'
 import ChildD4 from './pages/ParentD/ChildD4'
@@ -45,8 +45,8 @@ function App() {
             <Route path="barista-view-3" element={<BaristaView3 />} />
           </Route>
           <Route path="/dashboard" element={<ParentPageLayout parent="dashboard" />}>
-            <Route index element={<Navigate to="child-d1" replace />} />
-            <Route path="child-d1" element={<ChildD1 />} />
+            <Route index element={<Navigate to="metrics" replace />} />
+            <Route path="metrics" element={<Metrics />} />
             <Route path="child-d2" element={<ChildD2 />} />
             <Route path="child-d3" element={<ChildD3 />} />
             <Route path="child-d4" element={<ChildD4 />} />

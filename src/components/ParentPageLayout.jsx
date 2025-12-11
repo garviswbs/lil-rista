@@ -30,7 +30,7 @@ const parentConfig = {
   dashboard: {
     name: 'Dashboard',
     children: [
-      { name: 'Child D1', path: 'child-d1' },
+      { name: 'Metrics', path: 'metrics' },
       { name: 'Child D2', path: 'child-d2' },
       { name: 'Child D3', path: 'child-d3' },
       { name: 'Child D4', path: 'child-d4' },
