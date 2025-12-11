@@ -2,28 +2,28 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import './ParentPageLayout.css'
 
 const parentConfig = {
-  a: {
-    name: 'Parent A',
+  'check-in': {
+    name: 'Check-in View',
     children: [
-      { name: 'Child A1', path: 'child-a1' },
-      { name: 'Child A2', path: 'child-a2' },
-      { name: 'Child A3', path: 'child-a3' }
+      { name: 'Check-in View 1', path: 'check-in-view-1' },
+      { name: 'Check-in View 2', path: 'check-in-view-2' },
+      { name: 'Check-in View 3', path: 'check-in-view-3' }
     ]
   },
-  b: {
-    name: 'Parent B',
+  badge: {
+    name: 'Badge View',
     children: [
-      { name: 'Child B1', path: 'child-b1' },
-      { name: 'Child B2', path: 'child-b2' },
-      { name: 'Child B3', path: 'child-b3' }
+      { name: 'Badge View 1', path: 'badge-view-1' },
+      { name: 'Badge View 2', path: 'badge-view-2' },
+      { name: 'Badge View 3', path: 'badge-view-3' }
     ]
   },
-  c: {
-    name: 'Parent C',
+  barista: {
+    name: 'Barista View',
     children: [
-      { name: 'Child C1', path: 'child-c1' },
-      { name: 'Child C2', path: 'child-c2' },
-      { name: 'Child C3', path: 'child-c3' }
+      { name: 'Barista View 1', path: 'barista-view-1' },
+      { name: 'Barista View 2', path: 'barista-view-2' },
+      { name: 'Barista View 3', path: 'barista-view-3' }
     ]
   },
   d: {
@@ -41,15 +41,16 @@ const parentConfig = {
 function ParentPageLayout({ parent }) {
   const navigate = useNavigate()
   const location = useLocation()
-  
+
   const config = parentConfig[parent]
-  
+
   if (!config) {
     return <div>Parent page not found</div>
   }
 
   const handleTabClick = (childPath) => {
-    navigate(`/parent-${parent}/${childPath}`)
+    const parentPath = parent === 'check-in' ? 'check-in-view' : parent === 'badge' ? 'badge-view' : parent === 'barista' ? 'barista-view' : `parent-${parent}`
+    navigate(`/${parentPath}/${childPath}`)
   }
 
   const getActiveTab = () => {

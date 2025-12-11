@@ -4,30 +4,30 @@ import './HamburgerMenu.css'
 
 const menuStructure = [
   {
-    parent: 'Parent A',
-    parentPath: 'parent-a',
+    parent: 'Check-in View',
+    parentPath: 'check-in-view',
     children: [
-      { name: 'Child A1', path: 'child-a1' },
-      { name: 'Child A2', path: 'child-a2' },
-      { name: 'Child A3', path: 'child-a3' }
+      { name: 'Check-in View 1', path: 'check-in-view-1' },
+      { name: 'Check-in View 2', path: 'check-in-view-2' },
+      { name: 'Check-in View 3', path: 'check-in-view-3' }
     ]
   },
   {
-    parent: 'Parent B',
-    parentPath: 'parent-b',
+    parent: 'Badge View',
+    parentPath: 'badge-view',
     children: [
-      { name: 'Child B1', path: 'child-b1' },
-      { name: 'Child B2', path: 'child-b2' },
-      { name: 'Child B3', path: 'child-b3' }
+      { name: 'Badge View 1', path: 'badge-view-1' },
+      { name: 'Badge View 2', path: 'badge-view-2' },
+      { name: 'Badge View 3', path: 'badge-view-3' }
     ]
   },
   {
-    parent: 'Parent C',
-    parentPath: 'parent-c',
+    parent: 'Barista View',
+    parentPath: 'barista-view',
     children: [
-      { name: 'Child C1', path: 'child-c1' },
-      { name: 'Child C2', path: 'child-c2' },
-      { name: 'Child C3', path: 'child-c3' }
+      { name: 'Barista View 1', path: 'barista-view-1' },
+      { name: 'Barista View 2', path: 'barista-view-2' },
+      { name: 'Barista View 3', path: 'barista-view-3' }
     ]
   },
   {
