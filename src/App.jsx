@@ -5,8 +5,8 @@ import NotCheckedIn from './pages/CheckInView/NotCheckedIn'
 import CheckedIn from './pages/CheckInView/CheckedIn'
 import AllAttendees from './pages/CheckInView/AllAttendees'
 import WalkInReg from './pages/CheckInView/WalkInReg'
-import BadgeView1 from './pages/BadgeView/BadgeView1'
-import BadgeView2 from './pages/BadgeView/BadgeView2'
+import AwaitingBadge from './pages/BadgeView/AwaitingBadge'
+import BadgeReceived from './pages/BadgeView/BadgeReceived'
 import BadgeView3 from './pages/BadgeView/BadgeView3'
 import BaristaView1 from './pages/BaristaView/BaristaView1'
 import BaristaView2 from './pages/BaristaView/BaristaView2'
@@ -33,9 +33,9 @@ function App() {
             <Route path="walk-in-reg" element={<WalkInReg />} />
           </Route>
           <Route path="/badge-view" element={<ParentPageLayout parent="badge" />}>
-            <Route index element={<Navigate to="badge-view-1" replace />} />
-            <Route path="badge-view-1" element={<BadgeView1 />} />
-            <Route path="badge-view-2" element={<BadgeView2 />} />
+            <Route index element={<Navigate to="awaiting-badge" replace />} />
+            <Route path="awaiting-badge" element={<AwaitingBadge />} />
+            <Route path="badge-received" element={<BadgeReceived />} />
             <Route path="badge-view-3" element={<BadgeView3 />} />
           </Route>
           <Route path="/barista-view" element={<ParentPageLayout parent="barista" />}>

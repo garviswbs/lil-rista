@@ -17,8 +17,8 @@ const menuStructure = [
     parent: 'Badge View',
     parentPath: 'badge-view',
     children: [
-      { name: 'Badge View 1', path: 'badge-view-1' },
-      { name: 'Badge View 2', path: 'badge-view-2' },
+      { name: 'Awaiting Badge', path: 'awaiting-badge' },
+      { name: 'Badge Received', path: 'badge-received' },
       { name: 'Badge View 3', path: 'badge-view-3' }
     ]
   },
