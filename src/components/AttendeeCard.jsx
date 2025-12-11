@@ -47,6 +47,13 @@ function AttendeeCard({ attendee }) {
           </div>
         </div>
       </div>
+      <div className="card-actions">
+        {attendee.checkedIn ? (
+          <button className="btn-checkout">Checkout</button>
+        ) : (
+          <button className="btn-checkin">Check In</button>
+        )}
+      </div>
     </div>
   )
 }
