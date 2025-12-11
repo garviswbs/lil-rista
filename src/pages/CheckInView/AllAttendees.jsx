@@ -25,19 +25,28 @@ function AllAttendees() {
               </div>
               <div className="status-section">
                 <div className="status-item">
-                  <span className="status-label">Checked In:</span>
+                  <span className="status-label">
+                    <span className="status-icon">✓</span>
+                    Checked In:
+                  </span>
                   <span className={`status-badge ${attendee.checkedIn ? 'status-yes' : 'status-no'}`}>
                     {attendee.checkedIn ? 'Yes' : 'No'}
                   </span>
                 </div>
                 <div className="status-item">
-                  <span className="status-label">Received Badge:</span>
+                  <span className="status-label">
+                    <span className="status-icon">🎫</span>
+                    Received Badge:
+                  </span>
                   <span className={`status-badge ${attendee.receivedBadge ? 'status-yes' : 'status-no'}`}>
                     {attendee.receivedBadge ? 'Yes' : 'No'}
                   </span>
                 </div>
                 <div className="status-item">
-                  <span className="status-label">Received Drink:</span>
+                  <span className="status-label">
+                    <span className="status-icon">☕</span>
+                    Received Drink:
+                  </span>
                   <span className={`status-badge ${attendee.receivedDrink ? 'status-yes' : 'status-no'}`}>
                     {attendee.receivedDrink ? 'Yes' : 'No'}
                   </span>
