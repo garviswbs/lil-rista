@@ -51,21 +51,28 @@ function HamburgerMenu() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Don't close if clicking the hamburger button itself
+      if (event.target.closest('.hamburger-button')) {
+        return
+      }
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false)
       }
     }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
+      // Use 'click' instead of 'mousedown' for better mobile support
+      document.addEventListener('click', handleClickOutside, true)
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('click', handleClickOutside, true)
     }
   }, [isOpen])
 
-  const toggleMenu = () => {
+  const toggleMenu = (e) => {
+    // Prevent event from bubbling to handleClickOutside
+    e.stopPropagation()
     setIsOpen(!isOpen)
   }
 
