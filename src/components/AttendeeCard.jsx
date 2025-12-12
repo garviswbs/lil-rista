@@ -36,7 +36,7 @@ function AttendeeCard({ attendee, mode = 'checkin' }) {
           <span className="detail-value">{attendee.drinkType}</span>
         </div>
         <div className="status-section">
-          <div className="status-item">
+          <div className={`status-item ${mode === 'checkin' ? 'status-item-highlight' : ''}`}>
             <span className="status-label">
               <span className="status-icon">✓</span>
               Checked In:
@@ -45,7 +45,7 @@ function AttendeeCard({ attendee, mode = 'checkin' }) {
               {attendee.checkedIn ? 'Yes' : 'No'}
             </span>
           </div>
-          <div className="status-item">
+          <div className={`status-item ${mode === 'badge' ? 'status-item-highlight' : ''}`}>
             <span className="status-label">
               <span className="status-icon">🎫</span>
               Received Badge:

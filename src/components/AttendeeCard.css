@@ -65,6 +65,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.status-item-highlight {
+  background-color: #f5f5f5;
 }
 
 .status-label {
