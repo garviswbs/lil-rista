@@ -69,6 +69,10 @@
   transition: all 0.2s ease;
   font-family: inherit;
   min-width: fit-content;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tab:hover {
