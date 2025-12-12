@@ -1,4 +1,4 @@
-import './ChildPage.css'
+import '../../components/ChildPage.css'
 
 function BaristaView3() {
   return (

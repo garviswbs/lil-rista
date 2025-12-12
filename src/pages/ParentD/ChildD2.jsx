@@ -1,4 +1,4 @@
-import './ChildPage.css'
+import '../../components/ChildPage.css'
 
 function ChildD2() {
   return (

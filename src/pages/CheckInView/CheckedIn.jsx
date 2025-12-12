@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './ChildPage.css'
+import '../../components/ChildPage.css'
 import './AllAttendees.css'
 import attendeesData from '../../data/attendees.json'
 import AttendeeCard from '../../components/AttendeeCard'
