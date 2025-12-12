@@ -93,32 +93,43 @@ function HamburgerMenu() {
       </button>
       <div className={`flyout-menu ${isOpen ? 'open' : ''}`} ref={menuRef}>
         <nav className="menu-nav">
-          {menuStructure.map((section) => (
-            <div key={section.parentPath} className="menu-section">
-              <div className="menu-parent">
-                <Link
-                  to={`/${section.parentPath}/${section.children[0].path}`}
-                  className="parent-link"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {section.parent}
-                </Link>
+          {menuStructure.map((section) => {
+            const sectionClass = section.parentPath === 'check-in-view'
+              ? 'menu-section-check-in'
+              : section.parentPath === 'badge-view'
+                ? 'menu-section-badge'
+                : section.parentPath === 'barista-view'
+                  ? 'menu-section-barista'
+                  : section.parentPath === 'dashboard'
+                    ? 'menu-section-dashboard'
+                    : ''
+            return (
+              <div key={section.parentPath} className={`menu-section ${sectionClass}`}>
+                <div className="menu-parent">
+                  <Link
+                    to={`/${section.parentPath}/${section.children[0].path}`}
+                    className="parent-link"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {section.parent}
+                  </Link>
+                </div>
+                <ul className="menu-children">
+                  {section.children.map((child) => (
+                    <li key={child.path}>
+                      <Link
+                        to={`/${section.parentPath}/${child.path}`}
+                        className={isActiveRoute(section.parentPath, child.path) ? 'active' : ''}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {child.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="menu-children">
-                {section.children.map((child) => (
-                  <li key={child.path}>
-                    <Link
-                      to={`/${section.parentPath}/${child.path}`}
-                      className={isActiveRoute(section.parentPath, child.path) ? 'active' : ''}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {child.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            )
+          })}
         </nav>
       </div>
       {isOpen && <div className="flyout-overlay" onClick={() => setIsOpen(false)}></div>}

@@ -108,8 +108,40 @@
   transition: color 0.2s ease;
 }
 
-.parent-link:hover {
+/* Check-in View: Green parent link */
+.menu-section-check-in .parent-link {
+  color: #28a745;
+}
+
+.menu-section-check-in .parent-link:hover {
+  color: #218838;
+}
+
+/* Badge View: Blue parent link */
+.menu-section-badge .parent-link {
   color: #007bff;
+}
+
+.menu-section-badge .parent-link:hover {
+  color: #0056b3;
+}
+
+/* Barista View: Purple parent link */
+.menu-section-barista .parent-link {
+  color: #6f42c1;
+}
+
+.menu-section-barista .parent-link:hover {
+  color: #5a32a3;
+}
+
+/* Dashboard: Red parent link */
+.menu-section-dashboard .parent-link {
+  color: #dc3545;
+}
+
+.menu-section-dashboard .parent-link:hover {
+  color: #c82333;
 }
 
 .menu-children {
@@ -141,10 +173,35 @@
 }
 
 .menu-children a.active {
-  background: #e8f4f8;
+  font-weight: 500;
+}
+
+/* Check-in View: Green active child */
+.menu-section-check-in .menu-children a.active {
+  background: #e8f5e9;
+  color: #28a745;
+  border-left-color: #28a745;
+}
+
+/* Badge View: Blue active child */
+.menu-section-badge .menu-children a.active {
+  background: #e3f2fd;
   color: #007bff;
   border-left-color: #007bff;
-  font-weight: 500;
+}
+
+/* Barista View: Purple active child */
+.menu-section-barista .menu-children a.active {
+  background: #f5f3ff;
+  color: #6f42c1;
+  border-left-color: #6f42c1;
+}
+
+/* Dashboard: Red active child */
+.menu-section-dashboard .menu-children a.active {
+  background: #fff5f5;
+  color: #dc3545;
+  border-left-color: #dc3545;
 }
 
 @media (max-width: 768px) {
