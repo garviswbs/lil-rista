@@ -1,0 +1,55 @@
+.registration-type-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dropdown-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.required {
+  color: #e74c3c;
+}
+
+.dropdown-select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.dropdown-select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.dropdown-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.custom-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.custom-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
