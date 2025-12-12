@@ -4,7 +4,7 @@ import './HamburgerMenu.css'
 
 const menuStructure = [
   {
-    parent: 'Check-in View',
+    parent: 'Check-In View',
     parentPath: 'check-in-view',
     icon: '✓',
     children: [
