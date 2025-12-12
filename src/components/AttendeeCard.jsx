@@ -1,6 +1,24 @@
 import './AttendeeCard.css'
 
-function AttendeeCard({ attendee }) {
+function AttendeeCard({ attendee, mode = 'checkin' }) {
+  const renderButtons = () => {
+    if (mode === 'badge') {
+      // Badge view: Give Badge (green) if receivedBadge is false, Revoke Badge if true
+      if (!attendee.receivedBadge) {
+        return <button className="btn-give-badge">Give Badge</button>
+      } else {
+        return <button className="btn-revoke-badge">Revoke Badge</button>
+      }
+    } else {
+      // Check-in view: Checkout if checkedIn is true, Check In if false
+      if (attendee.checkedIn) {
+        return <button className="btn-checkout">Checkout</button>
+      } else {
+        return <button className="btn-checkin">Check In</button>
+      }
+    }
+  }
+
   return (
     <div className="attendee-card">
       <div className="attendee-header">
@@ -48,11 +66,7 @@ function AttendeeCard({ attendee }) {
         </div>
       </div>
       <div className="card-actions">
-        {attendee.checkedIn ? (
-          <button className="btn-checkout">Checkout</button>
-        ) : (
-          <button className="btn-checkin">Check In</button>
-        )}
+        {renderButtons()}
       </div>
     </div>
   )

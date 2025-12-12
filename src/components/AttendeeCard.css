@@ -112,7 +112,9 @@
 }
 
 .btn-checkin,
-.btn-checkout {
+.btn-checkout,
+.btn-give-badge,
+.btn-revoke-badge {
   width: 100%;
   padding: 12px 24px;
   border: none;
@@ -157,6 +159,38 @@
   box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
 }
 
+.btn-give-badge {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-give-badge:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-give-badge:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.btn-revoke-badge {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-revoke-badge:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-revoke-badge:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
 @media (max-width: 768px) {
   .attendee-card {
     padding: 20px;
@@ -167,7 +201,9 @@
   }
 
   .btn-checkin,
-  .btn-checkout {
+  .btn-checkout,
+  .btn-give-badge,
+  .btn-revoke-badge {
     padding: 10px 20px;
     font-size: 14px;
   }
