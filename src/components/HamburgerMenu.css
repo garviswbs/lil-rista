@@ -104,8 +104,20 @@
   font-weight: 600;
   color: #333;
   text-decoration: none;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: color 0.2s ease;
+}
+
+.parent-link-text {
+  flex: 1;
+}
+
+.parent-link-icon {
+  font-size: 20px;
+  margin-left: 12px;
+  flex-shrink: 0;
 }
 
 /* Check-in View: Green parent link */

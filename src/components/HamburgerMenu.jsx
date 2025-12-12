@@ -6,6 +6,7 @@ const menuStructure = [
   {
     parent: 'Check-in View',
     parentPath: 'check-in-view',
+    icon: '✓',
     children: [
       { name: 'Not Checked-In', path: 'not-checked-in' },
       { name: 'Checked-In', path: 'checked-in' },
@@ -16,6 +17,7 @@ const menuStructure = [
   {
     parent: 'Badge View',
     parentPath: 'badge-view',
+    icon: '🎫',
     children: [
       { name: 'Awaiting Badge', path: 'awaiting-badge' },
       { name: 'Badge Received', path: 'badge-received' },
@@ -25,6 +27,7 @@ const menuStructure = [
   {
     parent: 'Barista View',
     parentPath: 'barista-view',
+    icon: '☕',
     children: [
       { name: 'Awaiting Beverage', path: 'awaiting-beverage' },
       { name: 'Beverage Received', path: 'beverage-received' },
@@ -34,6 +37,7 @@ const menuStructure = [
   {
     parent: 'Dashboard',
     parentPath: 'dashboard',
+    icon: '📊',
     children: [
       { name: 'Metrics', path: 'metrics' },
       { name: 'Child D2', path: 'child-d2' },
@@ -111,7 +115,8 @@ function HamburgerMenu() {
                     className="parent-link"
                     onClick={() => setIsOpen(false)}
                   >
-                    {section.parent}
+                    <span className="parent-link-text">{section.parent}</span>
+                    <span className="parent-link-icon">{section.icon}</span>
                   </Link>
                 </div>
                 <ul className="menu-children">
