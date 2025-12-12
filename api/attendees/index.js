@@ -1,9 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('Missing Supabase environment variables:', {
+    hasSupabaseUrl: !!process.env.SUPABASE_URL,
+    hasViteSupabaseUrl: !!process.env.VITE_SUPABASE_URL,
+    hasServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+  })
   throw new Error('Missing Supabase environment variables')
 }
 
@@ -81,7 +86,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
     console.error('API error:', error)
-    return res.status(500).json({ error: error.message || 'Internal server error' })
+    console.error('Error details:', {
+      message: error.message,
+      supabaseUrl: supabaseUrl ? 'Set' : 'Missing',
+      supabaseServiceKey: supabaseServiceKey ? 'Set' : 'Missing',
+    })
+    return res.status(500).json({ 
+      error: error.message || 'Internal server error'
+    })
   }
 }
 
