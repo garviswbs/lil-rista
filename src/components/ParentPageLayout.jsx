@@ -62,8 +62,8 @@ function ParentPageLayout({ parent }) {
   const activeTab = getActiveTab()
 
   return (
-    <div className="parent-page-layout">
-      <div className="tabs-container">
+    <div className={`parent-page-layout parent-page-layout-${parent}`}>
+      <div className={`tabs-container tabs-container-${parent}`}>
         <div className="tabs">
           {config.children.map((child) => (
             <button

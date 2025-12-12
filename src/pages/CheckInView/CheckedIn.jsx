@@ -18,7 +18,7 @@ function CheckedIn() {
 
   return (
     <div className="child-page">
-      <div className="page-header">
+      <div className="page-header" >
         <h1>Checked-In</h1>
         <input
           type="text"

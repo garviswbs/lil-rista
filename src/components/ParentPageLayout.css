@@ -4,6 +4,26 @@
   flex-direction: column;
 }
 
+/* Check-in View: Light green background */
+.parent-page-layout-check-in {
+  background-color: #f0f9f2;
+}
+
+/* Badge View: Light blue background */
+.parent-page-layout-badge {
+  background-color: #f0f7ff;
+}
+
+/* Barista View: Light purple background */
+.parent-page-layout-barista {
+  background-color: #f5f3ff;
+}
+
+/* Dashboard: Light red background */
+.parent-page-layout-dashboard {
+  background-color: #fff5f5;
+}
+
 .tabs-container {
   background: white;
   border-bottom: 2px solid #e0e0e0;
@@ -57,10 +77,32 @@
 }
 
 .tab.active {
-  color: #007bff;
-  border-bottom-color: #007bff;
   font-weight: 500;
   background: #f8f9fa;
+}
+
+/* Check-in View: Green accent */
+.tabs-container-check-in .tab.active {
+  color: #28a745;
+  border-bottom-color: #28a745;
+}
+
+/* Badge View: Blue accent */
+.tabs-container-badge .tab.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+/* Barista View: Purple accent */
+.tabs-container-barista .tab.active {
+  color: #6f42c1;
+  border-bottom-color: #6f42c1;
+}
+
+/* Dashboard: Red accent */
+.tabs-container-dashboard .tab.active {
+  color: #dc3545;
+  border-bottom-color: #dc3545;
 }
 
 .page-content {
