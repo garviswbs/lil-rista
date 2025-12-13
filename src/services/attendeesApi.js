@@ -39,20 +39,20 @@ async function apiCall(endpoint, options = {}) {
   }
 
   // #region agent log
-  try{const _log={location:'src/services/attendeesApi.js:27',message:'apiCall - request start',data:{url,method:options.method||'GET',hasBody:!!options.body,useDirectSupabase:USE_DIRECT_SUPABASE},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'};console.log('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:27',message:'apiCall - request start',data:{url,method:options.method||'GET',hasBody:!!options.body,useDirectSupabase:USE_DIRECT_SUPABASE},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
   // #endregion
 
   try {
     const response = await fetch(url, config)
     
     // #region agent log
-    try{const _log={location:'src/services/attendeesApi.js:42',message:'apiCall - response received',data:{status:response.status,statusText:response.statusText,ok:response.ok,contentType:response.headers.get('content-type')},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'};console.log('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:42',message:'apiCall - response received',data:{status:response.status,statusText:response.statusText,ok:response.ok,contentType:response.headers.get('content-type')},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
     // #endregion
     
     const responseText = await response.text()
     
     // #region agent log
-    try{const _log={location:'src/services/attendeesApi.js:46',message:'apiCall - response text',data:{textLength:responseText.length,textPreview:responseText.substring(0,200),isEmpty:!responseText},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'};console.log('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:46',message:'apiCall - response text',data:{textLength:responseText.length,textPreview:responseText.substring(0,200),isEmpty:!responseText},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
     // #endregion
     
     let data
@@ -60,26 +60,26 @@ async function apiCall(endpoint, options = {}) {
       data = responseText ? JSON.parse(responseText) : null
     } catch (parseError) {
       // #region agent log
-      try{const _log={location:'src/services/attendeesApi.js:52',message:'apiCall - JSON parse error',data:{error:parseError.message,responseText},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'};console.error('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:52',message:'apiCall - JSON parse error',data:{error:parseError.message,responseText},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
       // #endregion
       throw parseError
     }
 
     if (!response.ok) {
       // #region agent log
-      try{const _log={location:'src/services/attendeesApi.js:58',message:'apiCall - response not ok',data:{status:response.status,statusText:response.statusText,error:data?.error},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C'};console.error('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:58',message:'apiCall - response not ok',data:{status:response.status,statusText:response.statusText,error:data?.error},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C'})}).catch(()=>{});
       // #endregion
       throw new Error(data?.error || `API error: ${response.statusText}`)
     }
 
     // #region agent log
-    try{const _log={location:'src/services/attendeesApi.js:64',message:'apiCall - success',data:{hasData:!!data},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'};console.log('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:64',message:'apiCall - success',data:{hasData:!!data},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
     // #endregion
 
     return data
   } catch (error) {
     // #region agent log
-    try{const _log={location:'src/services/attendeesApi.js:69',message:'apiCall - error caught',data:{error:error.message,errorType:error.constructor.name},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'D'};console.error('[DEBUG]',_log);fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_log)}).catch(()=>{});}catch(e){}
+    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:69',message:'apiCall - error caught',data:{error:error.message,errorType:error.constructor.name},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'D'})}).catch(()=>{});
     // #endregion
     console.error('API call error:', error)
     throw error
