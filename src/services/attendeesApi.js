@@ -40,16 +40,39 @@ async function apiCall(endpoint, options = {}) {
 
   try {
     const response = await fetch(url, config)
-    const data = await response.json()
-
-    if (!response.ok) {
-      throw new Error(data.error || `API error: ${response.statusText}`)
+    
+    let data = null
+    
+    // Try to parse JSON, but handle empty responses gracefully
+    try {
+      const text = await response.text()
+      if (text && text.trim()) {
+        data = JSON.parse(text)
+      }
+    } catch (parseError) {
+      // If parsing fails and response is not ok, provide better error
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} ${response.statusText}. Response was not valid JSON.`)
+      }
+      // If response is ok but can't parse, log warning but continue
+      console.warn('Response was not JSON but status is OK:', parseError)
     }
 
-    return data
+    if (!response.ok) {
+      const errorMessage = data?.error || `API error: ${response.status} ${response.statusText}`
+      throw new Error(errorMessage)
+    }
+
+    // If no data and response is ok, return empty object for successful requests
+    return data || {}
   } catch (error) {
     console.error('API call error:', error)
-    throw error
+    // If it's already an Error with a message, rethrow it
+    if (error instanceof Error) {
+      throw error
+    }
+    // Otherwise wrap it
+    throw new Error(error.message || 'Unknown API error')
   }
 }
 
