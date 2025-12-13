@@ -66,8 +66,21 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
+      // Parse body if it's a string (Vercel ES modules may send body as string)
+      let body = req.body
+      if (!body) {
+        return res.status(400).json({ error: 'Missing request body' })
+      }
+      if (typeof body === 'string') {
+        try {
+          body = JSON.parse(body)
+        } catch (e) {
+          return res.status(400).json({ error: 'Invalid JSON body' })
+        }
+      }
+      
       // Update attendee (full update)
-      const { firstName, lastName, email, registrationType, drinkType } = req.body
+      const { firstName, lastName, email, registrationType, drinkType } = body
 
       // Validation
       if (!firstName || !lastName || !email || !registrationType || !drinkType) {
