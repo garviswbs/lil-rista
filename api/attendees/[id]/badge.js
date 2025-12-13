@@ -31,10 +31,6 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/badge.js:33',message:'badge handler - entry',data:{method:req.method,query:req.query},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
-  
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'PATCH, OPTIONS')
@@ -94,20 +90,11 @@ export default async function handler(req, res) {
 
       if (error) throw error
 
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/badge.js:92',message:'badge handler - before response',data:{hasData:!!data},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
-      // #endregion
       return res.status(200).json(toCamelCase(data))
     }
 
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/badge.js:96',message:'badge handler - method not allowed',data:{method:req.method},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/badge.js:99',message:'badge handler - catch error',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'D'})}).catch(()=>{});
-    // #endregion
     console.error('API error:', error)
     return res.status(500).json({ error: error.message || 'Internal server error' })
   }
