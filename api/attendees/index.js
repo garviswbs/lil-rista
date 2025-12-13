@@ -36,17 +36,29 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
+  // Log request details for debugging
+  console.log('Request received:', {
+    method: req.method,
+    url: req.url,
+    query: req.query,
+    hasBody: !!req.body,
+    bodyType: typeof req.body,
+    headers: req.headers
+  })
+
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
-  if (req.method === 'OPTIONS') {
+  const method = (req.method || '').toUpperCase()
+  
+  if (method === 'OPTIONS') {
     return res.status(200).end()
   }
 
   try {
-    if (req.method === 'GET') {
+    if (method === 'GET') {
       // #region agent log
       fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:33',message:'GET /api/attendees - querying database',data:{method:'GET'},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
@@ -69,7 +81,7 @@ export default async function handler(req, res) {
       return res.status(200).json(toCamelCase(data))
     }
 
-    if (req.method === 'POST') {
+    if (method === 'POST') {
       // Parse body if it's a string (Vercel ES modules may send body as string)
       let body = req.body
       if (!body) {
