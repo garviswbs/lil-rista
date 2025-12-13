@@ -10,29 +10,44 @@ export function AttendeesProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const { setLoading: setApiLoading } = useLoading()
 
-  // Fetch all attendees
-  const fetchAttendees = useCallback(async () => {
+  // Fetch all attendees (with loading state for initial load)
+  const fetchAttendees = useCallback(async (showLoading = true) => {
     try {
-      setLoading(true)
+      if (showLoading) {
+        setLoading(true)
+      }
       const data = await attendeesApi.getAttendees()
       setAttendees(data)
     } catch (error) {
       console.error('Error fetching attendees:', error)
       throw error
     } finally {
-      setLoading(false)
+      if (showLoading) {
+        setLoading(false)
+      }
+    }
+  }, [])
+
+  // Refresh attendees silently (for real-time updates without showing loading spinner)
+  const refreshAttendeesSilently = useCallback(async () => {
+    try {
+      const data = await attendeesApi.getAttendees()
+      setAttendees(data)
+    } catch (error) {
+      console.error('Error refreshing attendees:', error)
+      // Don't throw - we don't want to break the UI on background refresh failures
     }
   }, [])
 
   // Initial fetch
   useEffect(() => {
-    fetchAttendees()
+    fetchAttendees(true)
   }, [fetchAttendees])
 
   // Set up real-time subscription (if available) or polling fallback
   useEffect(() => {
     let pollInterval
-    
+
     try {
       // Try to set up real-time subscription
       const channel = supabase
@@ -46,8 +61,8 @@ export function AttendeesProvider({ children }) {
           },
           async (payload) => {
             console.log('Real-time update:', payload)
-            // Refetch to get the latest data
-            await fetchAttendees()
+            // Refresh silently without showing loading spinner
+            await refreshAttendeesSilently()
           }
         )
         .subscribe()
@@ -55,10 +70,10 @@ export function AttendeesProvider({ children }) {
       // If subscription fails, fall back to polling
       channel.on('error', () => {
         console.log('Real-time not available, using polling instead')
-        // Poll every 3 seconds
+        // Poll every 15 seconds (silently) - less frequent to reduce server load
         pollInterval = setInterval(() => {
-          fetchAttendees()
-        }, 3000)
+          refreshAttendeesSilently()
+        }, 15000)
       })
 
       return () => {
@@ -67,16 +82,16 @@ export function AttendeesProvider({ children }) {
       }
     } catch (error) {
       console.log('Real-time not available, using polling instead')
-      // Poll every 3 seconds as fallback
+      // Poll every 15 seconds as fallback (silently) - less frequent to reduce server load
       pollInterval = setInterval(() => {
-        fetchAttendees()
-      }, 3000)
+        refreshAttendeesSilently()
+      }, 15000)
 
       return () => {
         if (pollInterval) clearInterval(pollInterval)
       }
     }
-  }, [fetchAttendees])
+  }, [refreshAttendeesSilently])
 
   // Create attendee
   const createAttendee = useCallback(
@@ -200,7 +215,7 @@ export function AttendeesProvider({ children }) {
     toggleCheckIn,
     toggleBadge,
     toggleDrink,
-    refreshAttendees: fetchAttendees,
+    refreshAttendees: () => fetchAttendees(true),
   }
 
   return <AttendeesContext.Provider value={value}>{children}</AttendeesContext.Provider>
