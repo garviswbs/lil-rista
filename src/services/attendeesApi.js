@@ -211,7 +211,7 @@ export async function toggleCheckIn(id) {
     if (error) throw error
     return toCamelCase(data)
   }
-  return apiCall(`/attendees/${id}/checkin`, {
+  return apiCall(`/attendees/checkin/${id}`, {
     method: 'PATCH',
   })
 }
