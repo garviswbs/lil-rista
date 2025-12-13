@@ -1,22 +1,56 @@
+import { useMemo } from 'react'
+import { useAttendees } from '../../contexts/AttendeesContext'
+import LoadingSpinner from '../../components/LoadingSpinner'
 import './Metrics.css'
 
 function Metrics() {
-    // Placeholder data - replace with actual data from your API/state management
-    const metrics = {
-        totalRegistered: 1250,
-        totalCheckedIn: 892,
-        totalOutstanding: 358,
-        totalWalkIn: 45,
-        checkInsByGroup: {
-            'Group A': 320,
-            'Group B': 285,
-            'Group C': 287
+    const { attendees, loading } = useAttendees()
+
+    // Calculate metrics from attendees data
+    const metrics = useMemo(() => {
+        const nonDeleted = attendees.filter(a => !a.isDeleted)
+        const totalRegistered = nonDeleted.length
+        const totalCheckedIn = nonDeleted.filter(a => a.checkedIn).length
+        const totalOutstanding = totalRegistered - totalCheckedIn
+        const totalWalkIn = nonDeleted.filter(a => 
+            a.registrationType === 'Walk-In' || a.registrationType === 'Walk-in'
+        ).length
+
+        // Group check-ins by registration type
+        const checkInsByGroup = {}
+        nonDeleted
+            .filter(a => a.checkedIn)
+            .forEach(attendee => {
+                const group = attendee.registrationType || 'Unknown'
+                checkInsByGroup[group] = (checkInsByGroup[group] || 0) + 1
+            })
+
+        return {
+            totalRegistered,
+            totalCheckedIn,
+            totalOutstanding,
+            totalWalkIn,
+            checkInsByGroup
         }
-    }
+    }, [attendees])
 
     const checkInRate = metrics.totalRegistered > 0
         ? ((metrics.totalCheckedIn / metrics.totalRegistered) * 100).toFixed(1)
         : 0
+
+    if (loading) {
+        return (
+            <div className="metrics-dashboard">
+                <div className="metrics-header">
+                    <h1>Dashboard Metrics</h1>
+                    <p className="metrics-subtitle">Real-time event attendance statistics</p>
+                </div>
+                <div className="loading-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+                    <LoadingSpinner size="large" />
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="metrics-dashboard">
@@ -60,32 +94,40 @@ function Metrics() {
                         <h3 className="metric-label">Total Walk-In Attendees</h3>
                         <p className="metric-value">{metrics.totalWalkIn.toLocaleString()}</p>
                         <p className="metric-percentage">
-                            {((metrics.totalWalkIn / (metrics.totalCheckedIn + metrics.totalWalkIn)) * 100).toFixed(1)}% of checked-in
+                            {metrics.totalCheckedIn > 0 
+                                ? ((metrics.totalWalkIn / metrics.totalCheckedIn) * 100).toFixed(1)
+                                : 0}% of checked-in
                         </p>
                     </div>
                 </div>
             </div>
 
             <div className="group-checkins-section">
-                <h2 className="section-title">Check-ins by Group Type</h2>
+                <h2 className="section-title">Check-ins by Registration Type</h2>
                 <div className="group-checkins-grid">
-                    {Object.entries(metrics.checkInsByGroup).map(([group, count]) => (
-                        <div key={group} className="group-card">
-                            <h3 className="group-name">{group}</h3>
-                            <p className="group-count">{count.toLocaleString()}</p>
-                            <div className="group-bar">
-                                <div
-                                    className="group-bar-fill"
-                                    style={{
-                                        width: `${(count / metrics.totalCheckedIn) * 100}%`
-                                    }}
-                                ></div>
+                    {Object.keys(metrics.checkInsByGroup).length === 0 ? (
+                        <p>No check-ins yet</p>
+                    ) : (
+                        Object.entries(metrics.checkInsByGroup).map(([group, count]) => (
+                            <div key={group} className="group-card">
+                                <h3 className="group-name">{group}</h3>
+                                <p className="group-count">{count.toLocaleString()}</p>
+                                <div className="group-bar">
+                                    <div
+                                        className="group-bar-fill"
+                                        style={{
+                                            width: `${metrics.totalCheckedIn > 0 ? (count / metrics.totalCheckedIn) * 100 : 0}%`
+                                        }}
+                                    ></div>
+                                </div>
+                                <p className="group-percentage">
+                                    {metrics.totalCheckedIn > 0 
+                                        ? ((count / metrics.totalCheckedIn) * 100).toFixed(1)
+                                        : 0}% of checked-in
+                                </p>
                             </div>
-                            <p className="group-percentage">
-                                {((count / metrics.totalCheckedIn) * 100).toFixed(1)}% of checked-in
-                            </p>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
             </div>
         </div>

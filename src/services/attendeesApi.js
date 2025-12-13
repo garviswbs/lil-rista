@@ -229,12 +229,12 @@ export async function toggleBadge(id) {
     
     if (fetchError) throw fetchError
     
-    if (!attendee.checkedIn) {
+    if (!attendee.checked_in) {
       throw new Error('Attendee must be checked in to receive a badge')
     }
     
     const now = new Date().toISOString()
-    const isGivingBadge = !attendee.receivedBadge
+    const isGivingBadge = !attendee.received_badge
     
     const updateData = {
       received_badge: isGivingBadge,
