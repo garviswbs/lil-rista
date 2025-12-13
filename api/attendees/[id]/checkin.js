@@ -31,21 +31,12 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
-  // Log request details for debugging
-  console.log('Checkin request received:', {
-    method: req.method,
-    url: req.url,
-    query: req.query
-  })
-
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'PATCH, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
-  const method = (req.method || '').toUpperCase()
-  
-  if (method === 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     return res.status(200).end()
   }
 
@@ -56,7 +47,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (method === 'PATCH') {
+    if (req.method === 'PATCH') {
       // Get current attendee
       const { data: attendee, error: fetchError } = await supabase
         .from('attendees')

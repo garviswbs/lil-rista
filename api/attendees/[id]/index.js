@@ -31,24 +31,12 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
-  // Log request details for debugging
-  console.log('Request received:', {
-    method: req.method,
-    url: req.url,
-    query: req.query,
-    hasBody: !!req.body,
-    bodyType: typeof req.body,
-    headers: req.headers
-  })
-
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
-  const method = (req.method || '').toUpperCase()
-  
-  if (method === 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     return res.status(200).end()
   }
 
@@ -59,9 +47,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const method = (req.method || '').toUpperCase()
-    
-    if (method === 'GET') {
+    if (req.method === 'GET') {
       // Get single attendee
       const { data, error } = await supabase
         .from('attendees')
@@ -79,18 +65,16 @@ export default async function handler(req, res) {
       return res.status(200).json(toCamelCase(data))
     }
 
-    if (method === 'PUT') {
+    if (req.method === 'PUT') {
       // Parse body if it's a string (Vercel ES modules may send body as string)
       let body = req.body
       if (!body) {
-        console.error('PUT request missing body:', { method, url: req.url, query: req.query })
         return res.status(400).json({ error: 'Missing request body' })
       }
       if (typeof body === 'string') {
         try {
           body = JSON.parse(body)
         } catch (e) {
-          console.error('Failed to parse body:', e)
           return res.status(400).json({ error: 'Invalid JSON body' })
         }
       }
@@ -125,7 +109,7 @@ export default async function handler(req, res) {
       return res.status(200).json(toCamelCase(data))
     }
 
-    if (method === 'DELETE') {
+    if (req.method === 'DELETE') {
       // Soft delete attendee
       const { data, error } = await supabase
         .from('attendees')
