@@ -12,7 +12,7 @@ function Metrics() {
         const totalRegistered = nonDeleted.length
         const totalCheckedIn = nonDeleted.filter(a => a.checkedIn).length
         const totalOutstanding = totalRegistered - totalCheckedIn
-        const totalWalkIn = nonDeleted.filter(a => 
+        const totalWalkIn = nonDeleted.filter(a =>
             a.registrationType === 'Walk-In' || a.registrationType === 'Walk-in'
         ).length
 
@@ -94,7 +94,7 @@ function Metrics() {
                         <h3 className="metric-label">Total Walk-In Attendees</h3>
                         <p className="metric-value">{metrics.totalWalkIn.toLocaleString()}</p>
                         <p className="metric-percentage">
-                            {metrics.totalCheckedIn > 0 
+                            {metrics.totalCheckedIn > 0
                                 ? ((metrics.totalWalkIn / metrics.totalCheckedIn) * 100).toFixed(1)
                                 : 0}% of checked-in
                         </p>
@@ -121,7 +121,7 @@ function Metrics() {
                                     ></div>
                                 </div>
                                 <p className="group-percentage">
-                                    {metrics.totalCheckedIn > 0 
+                                    {metrics.totalCheckedIn > 0
                                         ? ((count / metrics.totalCheckedIn) * 100).toFixed(1)
                                         : 0}% of checked-in
                                 </p>
