@@ -14,6 +14,22 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   },
 })
 
+// Convert snake_case from database to camelCase for frontend
+function toCamelCase(data) {
+  if (Array.isArray(data)) {
+    return data.map(toCamelCase)
+  }
+  if (data && typeof data === 'object') {
+    const camelData = {}
+    for (const key in data) {
+      const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())
+      camelData[camelKey] = data[key]
+    }
+    return camelData
+  }
+  return data
+}
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -37,7 +53,7 @@ export default async function handler(req, res) {
         .from('attendees')
         .select('*')
         .eq('id', id)
-        .eq('isDeleted', false)
+        .eq('is_deleted', false)
         .single()
 
       if (error) throw error
@@ -46,7 +62,7 @@ export default async function handler(req, res) {
         return res.status(404).json({ error: 'Attendee not found' })
       }
 
-      return res.status(200).json(data)
+      return res.status(200).json(toCamelCase(data))
     }
 
     if (req.method === 'PUT') {
@@ -58,13 +74,14 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing required fields' })
       }
 
+      // Convert camelCase to snake_case for database
       const updateData = {
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         email,
-        registrationType,
-        drinkType,
-        updatedAt: new Date().toISOString(),
+        registration_type: registrationType,
+        drink_type: drinkType,
+        updated_at: new Date().toISOString(),
       }
 
       const { data, error } = await supabase
@@ -76,7 +93,7 @@ export default async function handler(req, res) {
 
       if (error) throw error
 
-      return res.status(200).json(data)
+      return res.status(200).json(toCamelCase(data))
     }
 
     if (req.method === 'DELETE') {
@@ -84,9 +101,9 @@ export default async function handler(req, res) {
       const { data, error } = await supabase
         .from('attendees')
         .update({
-          isDeleted: true,
-          deletedAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
+          is_deleted: true,
+          deleted_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         })
         .eq('id', id)
         .select()
@@ -94,7 +111,7 @@ export default async function handler(req, res) {
 
       if (error) throw error
 
-      return res.status(200).json(data)
+      return res.status(200).json(toCamelCase(data))
     }
 
     return res.status(405).json({ error: 'Method not allowed' })

@@ -14,6 +14,22 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   },
 })
 
+// Convert snake_case from database to camelCase for frontend
+function toCamelCase(data) {
+  if (Array.isArray(data)) {
+    return data.map(toCamelCase)
+  }
+  if (data && typeof data === 'object') {
+    const camelData = {}
+    for (const key in data) {
+      const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())
+      camelData[camelKey] = data[key]
+    }
+    return camelData
+  }
+  return data
+}
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -37,7 +53,7 @@ export default async function handler(req, res) {
         .from('attendees')
         .select('*')
         .eq('id', id)
-        .eq('isDeleted', false)
+        .eq('is_deleted', false)
         .single()
 
       if (fetchError) throw fetchError
@@ -46,22 +62,23 @@ export default async function handler(req, res) {
       }
 
       // Validation: Must be checked in to receive badge
-      if (!attendee.checkedIn) {
+      if (!attendee.checked_in) {
         return res.status(400).json({ error: 'Attendee must be checked in to receive a badge' })
       }
 
       const now = new Date().toISOString()
-      const isGivingBadge = !attendee.receivedBadge
+      const isGivingBadge = !attendee.received_badge
 
+      // Convert camelCase to snake_case for database
       const updateData = {
-        receivedBadge: isGivingBadge,
-        updatedAt: now,
+        received_badge: isGivingBadge,
+        updated_at: now,
       }
 
       if (isGivingBadge) {
-        updateData.badgeReceivedAt = now
+        updateData.badge_received_at = now
       } else {
-        updateData.badgeReceivedAt = null
+        updateData.badge_received_at = null
       }
 
       const { data, error } = await supabase
@@ -73,7 +90,7 @@ export default async function handler(req, res) {
 
       if (error) throw error
 
-      return res.status(200).json(data)
+      return res.status(200).json(toCamelCase(data))
     }
 
     return res.status(405).json({ error: 'Method not allowed' })

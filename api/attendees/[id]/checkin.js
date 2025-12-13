@@ -14,6 +14,22 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   },
 })
 
+// Convert snake_case from database to camelCase for frontend
+function toCamelCase(data) {
+  if (Array.isArray(data)) {
+    return data.map(toCamelCase)
+  }
+  if (data && typeof data === 'object') {
+    const camelData = {}
+    for (const key in data) {
+      const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())
+      camelData[camelKey] = data[key]
+    }
+    return camelData
+  }
+  return data
+}
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -37,7 +53,7 @@ export default async function handler(req, res) {
         .from('attendees')
         .select('*')
         .eq('id', id)
-        .eq('isDeleted', false)
+        .eq('is_deleted', false)
         .single()
 
       if (fetchError) throw fetchError
@@ -46,23 +62,24 @@ export default async function handler(req, res) {
       }
 
       const now = new Date().toISOString()
-      const isCheckingIn = !attendee.checkedIn
+      const isCheckingIn = !attendee.checked_in
 
+      // Convert camelCase to snake_case for database
       const updateData = {
-        checkedIn: isCheckingIn,
-        updatedAt: now,
+        checked_in: isCheckingIn,
+        updated_at: now,
       }
 
       if (isCheckingIn) {
         // Checking in: set timestamp
-        updateData.checkedInAt = now
+        updateData.checked_in_at = now
       } else {
         // Checking out: clear timestamp and revoke badge/drink
-        updateData.checkedInAt = null
-        updateData.receivedBadge = false
-        updateData.receivedDrink = false
-        updateData.badgeReceivedAt = null
-        updateData.drinkReceivedAt = null
+        updateData.checked_in_at = null
+        updateData.received_badge = false
+        updateData.received_drink = false
+        updateData.badge_received_at = null
+        updateData.drink_received_at = null
       }
 
       const { data, error } = await supabase
@@ -74,7 +91,7 @@ export default async function handler(req, res) {
 
       if (error) throw error
 
-      return res.status(200).json(data)
+      return res.status(200).json(toCamelCase(data))
     }
 
     return res.status(405).json({ error: 'Method not allowed' })
