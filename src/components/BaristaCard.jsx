@@ -38,16 +38,16 @@ function BaristaCard({ attendee }) {
             </div>
             <div className="card-actions">
                 {attendee.receivedDrink ? (
-                    <button
-                        className="btn-resubmit-order"
+                    <button 
+                        className="btn-resubmit-order" 
                         onClick={handleDrink}
                         disabled={isButtonLoading || !attendee.checkedIn}
                     >
                         {isButtonLoading ? <LoadingSpinner size="small" /> : 'Resubmit Order'}
                     </button>
                 ) : (
-                    <button
-                        className="btn-complete-order"
+                    <button 
+                        className="btn-complete-order" 
                         onClick={handleDrink}
                         disabled={isButtonLoading || !attendee.checkedIn}
                     >
