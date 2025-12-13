@@ -70,24 +70,11 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      // Parse body if it's a string (Vercel ES modules may send body as string)
-      let body = req.body
-      if (!body) {
-        return res.status(400).json({ error: 'Missing request body' })
-      }
-      if (typeof body === 'string') {
-        try {
-          body = JSON.parse(body)
-        } catch (e) {
-          return res.status(400).json({ error: 'Invalid JSON body' })
-        }
-      }
-      
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:50',message:'POST /api/attendees - received request',data:{hasBody:!!body},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:50',message:'POST /api/attendees - received request',data:{hasBody:!!req.body},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
       // Create new attendee
-      const { firstName, lastName, email, registrationType, drinkType, checkedIn } = body
+      const { firstName, lastName, email, registrationType, drinkType, checkedIn } = req.body
 
       // Validation
       if (!firstName || !lastName || !email || !registrationType || !drinkType) {
