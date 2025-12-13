@@ -31,9 +31,6 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/badge.js:33',message:'[id]/badge.js handler called',data:{method:req.method,url:req.url,query:req.query},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'PATCH, OPTIONS')

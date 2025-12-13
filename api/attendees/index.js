@@ -47,9 +47,6 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      // #region agent log
-      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:33',message:'GET /api/attendees - querying database',data:{method:'GET'},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
       // Get all attendees (excluding soft-deleted)
       const { data, error } = await supabase
         .from('attendees')
@@ -57,22 +54,12 @@ export default async function handler(req, res) {
         .eq('is_deleted', false)
         .order('created_at', { ascending: true })
 
-      // #region agent log
-      if (error) {
-        fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:42',message:'GET /api/attendees - database error',data:{error:error.message,code:error.code},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      } else {
-        fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:44',message:'GET /api/attendees - query successful',data:{count:data?.length||0},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      }
-      // #endregion
       if (error) throw error
 
       return res.status(200).json(toCamelCase(data))
     }
 
     if (req.method === 'POST') {
-      // #region agent log
-      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:50',message:'POST /api/attendees - received request',data:{hasBody:!!req.body},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
       // Create new attendee
       const { firstName, lastName, email, registrationType, drinkType, checkedIn } = req.body
 
@@ -102,22 +89,12 @@ export default async function handler(req, res) {
         attendeeData.checked_in_at = now
       }
 
-      // #region agent log
-      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:75',message:'POST /api/attendees - inserting data',data:{keys:Object.keys(attendeeData)},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
       const { data, error } = await supabase
         .from('attendees')
         .insert([attendeeData])
         .select()
         .single()
 
-      // #region agent log
-      if (error) {
-        fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:82',message:'POST /api/attendees - insert error',data:{error:error.message,code:error.code},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      } else {
-        fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:84',message:'POST /api/attendees - insert successful',data:{id:data?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-      }
-      // #endregion
       if (error) throw error
 
       return res.status(201).json(toCamelCase(data))

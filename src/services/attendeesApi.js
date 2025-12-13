@@ -26,9 +26,6 @@ function toCamelCase(data) {
 // Helper function for API calls (uses serverless functions in production)
 async function apiCall(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:27',message:'apiCall entry',data:{url,endpoint,method:options.method,API_BASE_URL},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -43,9 +40,6 @@ async function apiCall(endpoint, options = {}) {
 
   try {
     const response = await fetch(url, config)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:42',message:'apiCall response received',data:{status:response.status,statusText:response.statusText,url:response.url,ok:response.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     
     let data = null
     
@@ -201,9 +195,6 @@ export async function deleteAttendee(id) {
 
 // Toggle check-in status
 export async function toggleCheckIn(id) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:197',message:'toggleCheckIn called',data:{id,USE_DIRECT_SUPABASE,isDev:import.meta.env.DEV},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
-  // #endregion
   if (USE_DIRECT_SUPABASE) {
     // Get current attendee
     const { data: attendee, error: fetchError } = await supabase
@@ -243,9 +234,6 @@ export async function toggleCheckIn(id) {
     if (error) throw error
     return toCamelCase(data)
   }
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:237',message:'toggleCheckIn calling API',data:{endpoint:`/attendees/${id}/checkin`,method:'PATCH',API_BASE_URL},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
   return apiCall(`/attendees/${id}/checkin`, {
     method: 'PATCH',
   })
@@ -253,9 +241,6 @@ export async function toggleCheckIn(id) {
 
 // Toggle badge status
 export async function toggleBadge(id) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:243',message:'toggleBadge called',data:{id,USE_DIRECT_SUPABASE,isDev:import.meta.env.DEV},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
-  // #endregion
   if (USE_DIRECT_SUPABASE) {
     // Get current attendee
     const { data: attendee, error: fetchError } = await supabase
@@ -295,9 +280,6 @@ export async function toggleBadge(id) {
     if (error) throw error
     return toCamelCase(data)
   }
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:283',message:'toggleBadge calling API',data:{endpoint:`/attendees/${id}/badge`,method:'PATCH',API_BASE_URL},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
   return apiCall(`/attendees/${id}/badge`, {
     method: 'PATCH',
   })

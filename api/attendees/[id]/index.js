@@ -31,9 +31,6 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/index.js:33',message:'[id]/index.js handler called',data:{method:req.method,url:req.url,query:req.query},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'D'})}).catch(()=>{});
-  // #endregion
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS')
@@ -117,9 +114,6 @@ export default async function handler(req, res) {
       return res.status(200).json(toCamelCase(data))
     }
 
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/[id]/index.js:117',message:'[id]/index.js returning 405',data:{method:req.method,allowedMethods:['GET','PUT','DELETE']},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
     console.error('API error:', error)
