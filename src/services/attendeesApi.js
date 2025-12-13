@@ -40,10 +40,36 @@ async function apiCall(endpoint, options = {}) {
 
   try {
     const response = await fetch(url, config)
-    const data = await response.json()
+    
+    // Get response text first (can only read body once)
+    const text = await response.text()
+    
+    // Handle empty responses (like OPTIONS requests)
+    if (!text || text.trim() === '') {
+      if (response.ok) {
+        // Empty successful response (e.g., OPTIONS preflight)
+        return null
+      }
+      // Error response without body
+      throw new Error(`API error: ${response.status} ${response.statusText}`)
+    }
+    
+    // Try to parse JSON
+    let data
+    try {
+      data = JSON.parse(text)
+    } catch (parseError) {
+      // If parsing fails and it's an error response, provide better error
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} ${response.statusText}`)
+      }
+      // Successful response but invalid JSON
+      throw new Error('Invalid JSON response from server')
+    }
 
+    // Check if response indicates an error
     if (!response.ok) {
-      throw new Error(data.error || `API error: ${response.statusText}`)
+      throw new Error(data?.error || `API error: ${response.status} ${response.statusText}`)
     }
 
     return data
