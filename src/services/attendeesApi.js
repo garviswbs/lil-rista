@@ -38,14 +38,8 @@ async function apiCall(endpoint, options = {}) {
     config.body = JSON.stringify(options.body)
   }
 
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:27',message:'apiCall making request',data:{url,method:config.method||'GET',hasBody:!!config.body,isProduction:!USE_DIRECT_SUPABASE},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C'})}).catch(()=>{});
-  // #endregion
   try {
     const response = await fetch(url, config)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/services/attendeesApi.js:43',message:'apiCall response received',data:{url,status:response.status,statusText:response.statusText,ok:response.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
     const data = await response.json()
 
     if (!response.ok) {
