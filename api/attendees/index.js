@@ -36,6 +36,9 @@ function toCamelCase(data) {
 }
 
 export default async function handler(req, res) {
+  // #region agent log
+  console.log(JSON.stringify({location:'api/attendees/index.js:38',message:'api/attendees/index.js handler called',data:{method:req.method,url:req.url,path:req.url?.split('?')[0]},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'}));
+  // #endregion
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
@@ -123,6 +126,9 @@ export default async function handler(req, res) {
       return res.status(201).json(toCamelCase(data))
     }
 
+    // #region agent log
+    console.log(JSON.stringify({location:'api/attendees/index.js:126',message:'api/attendees/index.js returning 405',data:{method:req.method,url:req.url},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'}));
+    // #endregion
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
     console.error('API error:', error)
