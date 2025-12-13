@@ -48,7 +48,7 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:33',message:'GET /api/attendees - querying database',data:{method:'GET'},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:33',message:'GET /api/attendees - querying database',data:{method:'GET'},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
       // Get all attendees (excluding soft-deleted)
       const { data, error } = await supabase
@@ -71,7 +71,7 @@ export default async function handler(req, res) {
 
     if (req.method === 'POST') {
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:50',message:'POST /api/attendees - received request',data:{hasBody:!!req.body},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:50',message:'POST /api/attendees - received request',data:{hasBody:!!req.body},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
       // Create new attendee
       const { firstName, lastName, email, registrationType, drinkType, checkedIn } = req.body
@@ -103,7 +103,7 @@ export default async function handler(req, res) {
       }
 
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:75',message:'POST /api/attendees - inserting data',data:{keys:Object.keys(attendeeData)},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+      // fetch('http://127.0.0.1:7242/ingest/9d9c66d5-6008-4f87-99a2-68bf46bb9175',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api/attendees/index.js:75',message:'POST /api/attendees - inserting data',data:{keys:Object.keys(attendeeData)},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
       const { data, error } = await supabase
         .from('attendees')
